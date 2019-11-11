@@ -1,17 +1,43 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'app',
+  data(){
+    return {
+      dataList: [
+        {
+          name: 'xmh',//人名
+          logTime: '',
+          content: ''
+        },
+        {
+          name: 'xmh',
+          logTime: '',
+          content: ''
+        },
+      ]
+    }
+  },
+  methods:{
+    toA(){
+      this.$router.push({path: '/A'})
+    },
+    toB(){
+      this.$router.push({path: '/B'})
+    },
+
+  },
+  mounted(){
+    this.$router.push({path: '/A'})
+  },
   components: {
-    HelloWorld
+
   }
 }
 </script>
