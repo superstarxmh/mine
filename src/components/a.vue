@@ -21,7 +21,8 @@
         name: "file",
         data() {
             return {
-                dataList: []
+                dataList: [],
+                logList: []
             }
         },
         methods: {
@@ -41,23 +42,31 @@
                     reader.onload = () => {
                         Papa.parse(reader.result, {
                             complete: function (results) {
-                                let data = results.data.filter((item, index) => item.length === 6 && index);
+                                let data = [];
+                                results.data.filter((item, index) => item.length === 9 && index).forEach(item=>{
+                                    if(item[2]){
+                                        item[2] = item[2].split("(")[0];
+                                        data.push(item);
+                                    }
+                                });
                                 let temp = [], res = [], i = -1;
                                 data.map(item => {
-                                    if (temp.indexOf(item[2]) === -1) {
+                                    let tIndex = temp.indexOf(item[2]);
+                                    if (tIndex === -1) {
                                         i = i + 1;
                                         temp.push(item[2]);
                                         res[i] = [];
                                         res[i].push(item)
                                     } else {
-                                        res[i].push(item)
+                                        res[tIndex].push(item)
                                     }
                                 });
+                                console.log(res);
                                 let params = [];
                                 res.forEach(item => {
                                     let content = ' \n ';
                                     item.map((p, index) => {
-                                        content = content + (index + 1) + '、' + p[0] + '：' + p[1] + '（' + p[4] + '）' +
+                                        content = content + (index + 1) + '、' + p[0] + '：' + p[1] + '（' + p[4] + '%）' +
                                             ' \n '
                                     });
                                     params.push({
@@ -89,6 +98,9 @@
                 }
                 return encoding
             },
+            getContent(content,parent){
+
+            }
         }
     }
 </script>

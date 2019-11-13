@@ -699,6 +699,11 @@ const getURLParameters = url => url.match(/([^?=&]+)(=([^&]*))/g).reduce((a, v) 
 
 //const _import_pages = path => r => require.ensure([], () => r(require("@/pages/" + path + ".vue")));
 
+/**
+ * 将数字转化为中文
+ * @param num
+ */
+
 let chnNumChar = ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九"];
 
 let chnUnitSection = ["", "万", "亿", "万亿", "亿亿"];
