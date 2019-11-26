@@ -1161,6 +1161,29 @@ export const openWindow = (url, title, w, h) => {
         newWindow.focus()
     }
 }
+/**
+ * excel文件解析
+ */
+export const file2Xce = (file) => {
+    return new Promise(function (resolve, reject) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const data = e.target.result;
+            this.wb = XLSX.read(data, {
+                type: 'binary'
+            });
+            const result = [];
+            this.wb.SheetNames.forEach((sheetName) => {
+                result.push({
+                    sheetName: sheetName,
+                    sheet: XLSX.utils.sheet_to_json(this.wb.Sheets[sheetName])
+                })
+            });
+            resolve(result)
+        };
+        reader.readAsBinaryString(file.raw);
+    });
+}
 
 export {
     DataLength,
